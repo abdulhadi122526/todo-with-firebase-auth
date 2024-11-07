@@ -4,7 +4,7 @@ import { useRef, useState } from "react"
 
 
 
-function App() {
+function Todo() {
 
 const input = useRef()
 const [todo,  setTodo] = useState([])
@@ -72,5 +72,5 @@ return(
 
 }
 
-export default App
+export default Todo
 
