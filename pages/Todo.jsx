@@ -1,20 +1,53 @@
 
 import { Button } from "@mui/material"
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+ 
+import { useNavigate } from "react-router-dom";
 
 
+
+
+const auth = getAuth();
 
 function Todo() {
+
+
+  const navigate = useNavigate()
+  useEffect(() => {
+    
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        
+        const uid = user.uid;
+        console.log(uid);
+        
+       console.log(uid)
+      } else {
+        console.log("user is not logged in!");
+        navigate("/")
+        alert("please login your account")  
+        
+      }
+    });
+   
+  }, [])
+  
+
+
+
+
 
 const input = useRef()
 const [todo,  setTodo] = useState([])
 
-const addTodo = (event)=>{
+const addTodo = async (event)=>{ 
  event.preventDefault()
   console.log(input.current.value);
+
+
   todo.push(input.current.value);
   setTodo([...todo])
-  console.log(todo);  
   input.current.value =" ";  
   
 }
@@ -44,9 +77,9 @@ return(
   </form>
   <ol className="ol">
     {todo.length > 0? todo.map( (item , index)=>{
-      return <li className="li" key={index}> {item} 
+      return <li  style={{marginTop: '20px', fontSize: "20px"}} className="li" key={index}> {item} 
       
-      <div>
+      <div style={{marginTop: "20px"}}>
       
       <Button   onClick={()=> deleteTodo(index)} className="edbtn" variant="contained" sx={{backgroundColor: "red"}}>Delete</Button>
       

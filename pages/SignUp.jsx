@@ -1,8 +1,7 @@
 import { Typography} from "@mui/material";
 import { Link } from "react-router-dom";
 import  { useRef, useState } from "react";
-import { getAuth } from "firebase/auth";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {  getAuth,createUserWithEmailAndPassword } from "firebase/auth";
 import {app } from '../config/firbase/firbaseconfig.js';
 import { useNavigate } from "react-router-dom";
 
@@ -27,6 +26,8 @@ function SignUp(){
             .catch((error) => {
                 
                 const errorMessage = error.message;
+                const errorCode = error.code;
+                console.log(errorCode)
                 setError(errorMessage)
                 
             });
